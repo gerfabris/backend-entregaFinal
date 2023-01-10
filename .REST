@@ -1,0 +1,9 @@
+POST http://localhost:8080/ HTTP/1.1
+
+{
+    "title": "Mate",
+    "price": 654,
+    "thumbnail": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.es%2Ffotos-vectores-gratis%2Fmate&psig=AOvVaw36xK888XeZ833g2kGU6YeX&ust=1672954462221000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOi475TvrvwCFQAAAAAdAAAAABAE"
+}
+
+####

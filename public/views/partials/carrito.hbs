@@ -1,0 +1,13 @@
+    {{#each carrito.productos }}
+        <tr>
+            <td>{{producto.title}}</td>
+            <td>{{producto.price}}</td>
+            <td><img src="{{thumbnail}}" class='card-img-top w-25' alt=""></td>
+            <td>
+                <form action="/cart/{{_id}}" onsubmit="return eliminarProducto(this)">
+                    <input type='hidden' name='productId' value='{{_id}}'/>
+                    <button type="submit" class="btn btn-danger" > Eliminar Producto</button>
+                </form>
+            </td>
+        </tr>
+    {{/each}}

@@ -1,0 +1,21 @@
+{{#if productos }}
+    <h2 class="text-primary mt-4 text-center">Listado de Productos</h2>
+    <div class="container-fluid my-4 flex__center cards">
+        {{#each productos}}
+            <div class="col container my-4 card">
+                <h4 class="text-primary h4 text-center">{{title}}</h4>
+                <img src="{{thumbnail}}" class="img-fluid img__card"/>
+                <p class="text-center text-primary">Precio: {{price}}</p>
+                <form action="/cart"  method="POST" {{!-- onsubmit="return agregarProducto(this)" --}}>
+                    <input type='hidden' name='idProducto' value='{{_id}}' id="idProducto" /> {{!-- lo recibimos al post en /cart con req.body.productId --}}
+                    <button type='submit' class='btn btn-primary'>Agregar al carrito</button>
+                </form>
+                <form action='/productos/detail/{{_id}}' method='GET' {{!-- onsubmit="return agregarProducto(this)" --}}>
+                    <button type='submit' class='btn btn-primary'>Ver más detalles</button>
+                </form>
+            </div>
+        {{/each}}
+    </div>
+    {{else}}
+        <h3 class="alert-danger rounded p-3 section">No se encontraron productos</h3>  
+{{/if}}

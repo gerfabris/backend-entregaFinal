@@ -1,0 +1,18 @@
+{{#if carrito.productos}}
+    {{#each carrito.productos }}
+        <tr>
+            <td>{{title}}</td>
+            <td>{{price}}</td>
+            <td><img src="{{thumbnail}}" class='card-img-top w-25' alt=""></td>
+            <td>
+                <form action="/cart/{{title}}" onsubmit="return eliminarProducto(this)">
+                    {{!-- <input type='hidden' name='productId' value='{{_id}}' id="{{_id}}"/> --}}
+                    <button type="submit" class="btn btn-danger" > Eliminar Producto</button>
+                </form>
+            </td>
+        </tr>
+    {{/each}}
+    {{else}}
+            <h3 class="alert-danger rounded p-3 section">No se encontraron productos en el carrito</h3>
+{{/if}}  
+

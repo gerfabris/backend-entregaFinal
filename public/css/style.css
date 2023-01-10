@@ -1,0 +1,139 @@
+*{
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    background-color:  rgb(206, 210, 226);
+}
+main{
+    padding: 2em;
+}
+nav ul{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.section{
+    max-width: 800px;
+    margin: auto;
+    border-radius: 10pt;
+    box-shadow: 5px 5px 13px rgb(68, 85, 156);
+    padding: 2em;
+}
+.section__tablaProductos{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+.messages__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    max-height: 300px;
+    box-shadow: 3px 3px 15px #023661;
+    padding: 2em;
+}
+.email{
+    font-weight: bold;
+}
+.date{
+    color: brown;
+}
+.img__producto{
+    max-width: 50px;
+    max-height: 50px;
+}
+.section__bienvenida{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    align-items: center;
+    justify-content: center;
+}
+.section_detail{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+.boton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2em;
+}
+.flex__center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.img{
+    width: 5em;
+    margin-left: 2em;
+}
+.cards{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.card{
+    min-width: 15em;
+    min-height: 25em;
+    max-width: 15em;
+    max-height: 25em;
+    width: 15em;
+    height: 25em;
+    margin-left: 1em;
+    margin-right: 1em;
+    box-shadow: 3px 3px 15px #023661;
+    background-color:  rgb(206, 210, 226);
+    border-radius: 10pt;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.card_detail{
+    min-width: 25em;
+    min-height: 30em;
+    max-width: 25em;
+    max-height: 30em;
+}
+.card_detail img{
+    max-height: 8em;
+    width: 70%;
+}
+.card_detail p{
+    font-weight: bold;
+}
+
+.img__card{
+    width: 90%;
+    max-height: 5em;
+}
+.button__iconNavBar{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.iconNavBar{
+    background-color: #212529;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+}
+
+@media screen and (max-width: 900px) {
+    nav ul li{
+        display: flex;
+        justify-content: center;
+        width: 100%;  
+    }
+}

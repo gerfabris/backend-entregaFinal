@@ -1,0 +1,25 @@
+{{#if productos }}
+    <h2 class="text-primary mt-4 text-center">Listado de Productos</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Precio</th>
+                <th scope="col">URL imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each productos}}
+                <tr>
+                    <td>{{id}}</td>
+                    <th scope="row">{{title}}</th>
+                    <td>{{price}}</td>
+                    <td><img src={{thumbnail}} class="img-fluid img__producto" alt=""></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{else}}
+        <h3 class="alert-danger rounded p-3 section">No se encontraron productos</h3>  
+{{/if}}

@@ -1,0 +1,13 @@
+<div class="section">
+    {{#each messages }}
+        <p class"my-2 messages__container">
+            <span class="text-info email">{{ email }} </span>
+            <span class="text-info email">{{ author.edad }} </span>
+            <span class="text-info email">{{ type }} </span>
+            <span class="date"> 
+                [{{ date }}]    
+            </span>
+            <span class="text-success">: {{text}} </span>
+        </p>
+    {{/each}}
+</div>

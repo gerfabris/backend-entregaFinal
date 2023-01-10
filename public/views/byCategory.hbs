@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Final Backend - Germán Fabris</title>
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+        crossorigin="anonymous"
+    >
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <header>
+        {{> navbar}}
+    </header>
+    <main class="container-fluid">
+        <h1 class="h1 my-4 text-primary text-center">Formulario y Chat con WebSocket</h1>
+        <section class="section__bienvenida section">
+            {{#if user }}
+                <h3 class="alert-success rounded p-3">Bienvenido {{user.name}}</h3>
+                <img src="{{user.avatar}}" alt="" class="img">
+                {{else}}
+                <h3 class="alert-success rounded p-3">Bienvenido 🚀</h3>  
+            {{/if}}
+            <form method="POST">
+                <a href="/logout" class="my-4 container-fluid">
+                    <button type="submit" class="btn btn-dark">Cerrar sesión</button>
+                    <div id="logout"></div>
+                </a>            
+            </form>
+        </section>
+        
+        <div class="col my-4">
+            <h3 class="text-primary h3 text-center">Nuestros productos</h3>
+            <h4 class="text-primary h4 text-center">Categoría {{category}} </h4>
+            <form action="/productos/view/:category">
+                <select name="category" id="category">
+                    <option value="mate">Mate</option>
+                    <option value="termos">Termos</option>
+                    <option value="set">Sets</option>
+                </select>
+                <button type="submit" class="btn btn-dark">Ver</button>
+            </form>
+            <div id="list" class="section__tablaProductos">
+                {{#if productos }}
+                    <h2 class="text-primary mt-4 text-center">Listado de Productos</h2>
+                    <div class="container-fluid my-4 flex__center cards">
+                        {{#each productos}}
+                            <div class="col container my-4 card">
+                                <h4 class="text-primary h4 text-center">{{title}}</h4>
+                                <img src="{{thumbnail}}" class="img-fluid img__card"/>
+                                <p class="text-center text-primary">Precio: {{price}}</p>
+                                <form action='/cart' method='POST' {{!-- onsubmit="return agregarProducto(this)" --}}>
+                                    <input type='hidden' name='productId' value='{{_id}}' id="productId" /> {{!-- lo recibimos al post en /cart con req.body.productId --}}
+                                    <button type='submit' class='btn btn-primary'>Agregar al carrito</button>
+                                </form>
+                                <form action='/productos/{{_id}}' method='GET' {{!-- onsubmit="return agregarProducto(this)" --}}>
+                                    <button type='submit' class='btn btn-primary'>Ver más detalles</button>
+                                </form>
+                            </div>
+                        {{/each}}
+                    </div>
+                    {{else}}
+                        <h3 class="alert-danger rounded p-3 section">No se encontraron productos</h3>  
+                {{/if}}
+            </div>
+        </div>
+    </main>
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+        crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+</body>
+</html>

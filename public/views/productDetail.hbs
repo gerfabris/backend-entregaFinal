@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Final Backend - Germán Fabris</title>
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+        crossorigin="anonymous"
+    >
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <header>
+        {{> navbar}}
+    </header>
+    <main class="container-fluid">
+        <h1 class="h1 my-4 text-primary text-center">Formulario y Chat con WebSocket</h1>
+        <section class="section__bienvenida section">
+            {{#if user }}
+                <h3 class="alert-success rounded p-3">Bienvenido {{user.name}}</h3>
+                <img src="{{user.avatar}}" alt="" class="img">
+                {{else}}
+                <h3 class="alert-success rounded p-3">Bienvenido 🚀</h3>  
+            {{/if}}
+            <form method="POST">
+                <a href="/logout" class="my-4 container-fluid">
+                    <button type="submit" class="btn btn-dark">Cerrar sesión</button>
+                    <div id="logout"></div>
+                </a>            
+            </form>
+        </section>
+        
+        <div class="section section_detail">
+            <h3 class="text-primary h3 text-center">Detalles del producto</h3>
+                <div class="col container my-4 card card_detail">
+                    <h4 class="text-primary h4 text-center">{{producto.title}}</h4>
+                    <h4 class="text-primary h4 text-center">Categoría: {{producto.category}}</h4>
+                    <img src="{{producto.thumbnail}}" class="img-fluid img__card"/>
+                    <p class="text-center text-primary">Precio: {{producto.price}}</p>
+                    <p class="text-center text-primary">Cantidad: {{producto.cantidad}}</p>
+                    <p class="text-center text-primary">{{producto.description}}</p>
+                    <p class="text-center text-primary">Código: {{producto.code}}</p>
+                    <form action='/cart' method='POST' {{!-- onsubmit="return agregarProducto(this)" --}}>
+                        <input type='hidden' name='productId' value='{{producto._id}}' id="productId" /> {{!-- lo recibimos al post en /cart con req.body.productId --}}
+                        <button type='submit' class='btn btn-primary'>Agregar al carrito</button>
+                    </form>
+                    <form action='/productos' method='GET' {{!-- onsubmit="return agregarProducto(this)" --}}>
+                        <button type='submit' class='btn btn-primary'>Volver a home</button>
+                    </form>
+                </div>
+        </div>
+    </main>
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+        crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+</body>
+</html>
