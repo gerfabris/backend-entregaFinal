@@ -3,11 +3,14 @@ import { createServer } from './server.js'
 import os from 'os'
 import cluster from 'cluster'
 import { logger } from './utils/logger.js'
-import { connectMongoDB } from './config/mongoDB.js'
+/* ------ */
+import dotenv from 'dotenv'
+dotenv.config()
+/* ------ */
 
 const CPUs = os.cpus()
 const numCPUs = CPUs.length
-const PORT = config.puerto
+const PORT = process.env.PORT //config.puerto
 const modo = config.modoServer
 
 if(cluster.isPrimary && modo === 'cluster'){
