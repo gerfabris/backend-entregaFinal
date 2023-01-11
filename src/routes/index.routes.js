@@ -14,6 +14,7 @@ import signup from './signup.routes.js'
 import failSignup from './failsignup.routes.js'
 import logout from './logout.routes.js'
 import order from './order.routes.js'
+import failorder from './failorder.routes.js'
 /* --- config --- */
 routes.use('/', login)
 routes.use('/productos', home)
@@ -25,6 +26,8 @@ routes.use('/info', info)
 routes.use('/faillogin', faillogin)
 routes.use('/signup', signup)
 routes.use('/failsignup', failSignup)
+routes.use('/logout', logout)
 routes.use('/order', order)
+routes.use('/failorder', failorder)
 
 export default routes

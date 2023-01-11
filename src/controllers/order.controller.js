@@ -1,10 +1,11 @@
 import { logger } from "../utils/logger.js"
-import { CarritosApi, OrderApi } from "../api/index.api.js";
+import { CarritosApi, OrderApi, ProductosApi } from "../api/index.api.js";
 import { sendEmailNewOrder } from "../services/nodeMailer.js";
 import { sendNewOrder, sendWhatsApp, sendWhatsAppAdmin } from "../services/twilio.js";
+import { actualizarStockProductos } from "../utils/stock.js";
 /* ----- ----- */
 const orderApi = new OrderApi()
-const carritosApi = new CarritosApi() 
+const carritosApi = new CarritosApi()
 /* ----- ----- */
 const sumar = (arr) => {
     let total = 0
@@ -52,21 +53,40 @@ export const postOrder = async ( req, res ) => {
                     Precio: $${prod.producto.price}
                 `
             }) 
+            let ordenParaMongo = await orderApi.crearOrden( user.userEmail , user.address , carrito.productos )
+    
+            await actualizarStockProductos(carrito.productos)
+            await sendWhatsAppAdmin(orderEnviar, total, user) // ---> Este envía a ADMIN por whatsapp la Orden ya que no deja enviar SMS a msj sin verificar
+            await sendWhatsApp(orderEnviar, total , user) // ---> Este envía whatsapp a usuario su orden
+            await sendEmailNewOrder(orderEnviar, total, user) // ---> Este envía correo a usuario su orden
+            await carrito.updateOne({ $set: { productos: [] } })
+            
+            let order = ordenParaMongo
+            res.status(200).render('order', {user, order})
+        }else{
+            res.redirect('/failorder')
         }
-        let ordenParaMongo = await orderApi.crearOrden( user.userEmail , user.address , carrito.productos )
-        await sendWhatsAppAdmin(orderEnviar, total, user) // ---> Este envía a ADMIN por whatsapp la Orden ya que no deja enviar SMS a msj sin verificar
-        //await sendWhatsApp(orderEnviar, total , user) // ---> Este envía whatsapp a usuario su orden
-        await sendEmailNewOrder(orderEnviar, total, user) // ---> Este envía correo a usuario su orden
-        await carrito.updateOne({ $set: { productos: [] } })
-        
-        let order = ordenParaMongo
 
-        res.status(200).render('order', {user, order})
     } catch (error) {
         logger.error('Error en comprarCarrito', error)
         res.status(500).json({
             success: false,
             message: error.message
         })
+    }
+}
+
+
+export const getFailOrder = async (req,res) =>{    
+    try{
+        logger.info('GET /fail-order' )
+        let user = req.user
+        res.status(200).render('order-error', { user })
+    }catch(error){
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+        logger.error('Error en GET /order' , error)
     }
 }

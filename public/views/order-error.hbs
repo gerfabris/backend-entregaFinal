@@ -20,35 +20,8 @@
         {{> navbar}}
     </header>
     <main class="container-fluid">
-        <h1 class="h1 my-4 text-primary text-center">Tu orden fue enviada con éxito</h1>
+        <h1 class="h1 my-4 text-primary text-center alert-danger">Tu orden no pudo ser completada, intenta nuevamente</h1>
         <section class="section__bienvenida section">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Producto</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Imagen</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each order.productos }}
-                        <tr>
-                            <td>{{producto.title}}</td>
-                            <td>{{producto.price}}</td>
-                            <td>{{quantity}}</td>
-                            <td class="w-25">
-                                <img src="{{producto.thumbnail}}" class='card-img-top w-60' alt="{{producto.title}}">
-                            </td>
-                        </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-            {{total}}
-            <h3 class="my-2 text-center">Dirección de entrega: {{order.address}}</h3>
-            <h3 class="my-2 text-center">DIrreción de email: {{order.email}}</h3>
-            <h3 class="my-2 text-center">Estado de orden: {{order.status}} N° {{order._id}} </h3>
-
             <form class="my-4" action="/productos" method="get">
                 <button type="submit" class="btn btn-success">Volver a comprar</button>
             </form>

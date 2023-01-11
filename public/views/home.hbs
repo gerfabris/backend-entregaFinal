@@ -38,13 +38,13 @@
         <div class="col my-4">
             <h3 class="text-primary h3 text-center">Nuestros productos</h3>
             <h4 class="text-primary h4 text-center">Ver por categoría</h4>
-            <form action="/productos/view/:category">
-                <select name="category" id="category">
+            <form action="/productos/view/:category" class="categories">
+                <select name="category" id="category" class="my-1">
                     <option value="mate">Mate</option>
                     <option value="termos">Termos</option>
                     <option value="set">Sets</option>
                 </select>
-                <button type="submit" class="btn btn-dark">Ver</button>
+                <button type="submit" class="btn btn-dark my-1">Ver</button>
             </form>            
             <div id="list" class="section__tablaProductos">
             </div>
