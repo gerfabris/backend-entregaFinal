@@ -63,7 +63,7 @@ export const getProductsByCategory = async (req,res)=>{
         logger.info('GET /productos/view/:category')
         if(req.user){
             let user = req.user;
-            let { category } = req.body
+            let { category } = req.query
             let productos = await productosApi.getByCategory(category)
             res.render('byCategory', {user, productos }) ;
         }else{

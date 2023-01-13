@@ -34,9 +34,9 @@
             <h4 class="text-primary h4 text-center">Categoría {{category}} </h4>
             <form action="/productos/view/:category" class="categories">
                 <select name="category" id="category" class="my-1">
-                    <option value="mate">Mate</option>
+                    <option value="mates">Mate</option>
                     <option value="termos">Termos</option>
-                    <option value="set">Sets</option>
+                    <option value="sets">Sets</option>
                 </select>
                 <button type="submit" class="btn btn-primary my-1">Ver</button>
             </form>
@@ -50,9 +50,9 @@
                     <div class="container-fluid my-4 flex__center cards">
                         {{#each productos}}
                             <div class="col container my-4 card">
-                                <h4 class="text-primary h4 text-center">{{title}}</h4>
+                                <h4 class="text-primary h4 text-center texto">{{title}}</h4>
                                 <img src="{{thumbnail}}" class="img-fluid img__card"/>
-                                <p class="text-center text-primary">Precio: {{price}}</p>
+                                <p class="text-center text-primary texto">Precio: {{price}}</p>
                                 <form action="/cart"  method="POST">
                                     <input type='hidden' name='idProducto' value='{{_id}}' id="idProducto" /> 
                                     <button type='submit' class='btn btn-primary'>Agregar al carrito</button>
