@@ -55,11 +55,11 @@
                                 <h4 class="text-primary h4 text-center">{{title}}</h4>
                                 <img src="{{thumbnail}}" class="img-fluid img__card"/>
                                 <p class="text-center text-primary">Precio: {{price}}</p>
-                                <form action='/cart' method='POST' {{!-- onsubmit="return agregarProducto(this)" --}}>
-                                    <input type='hidden' name='productId' value='{{_id}}' id="productId" /> {{!-- lo recibimos al post en /cart con req.body.productId --}}
+                                <form action="/cart"  method="POST">
+                                    <input type='hidden' name='idProducto' value='{{_id}}' id="idProducto" /> 
                                     <button type='submit' class='btn btn-primary'>Agregar al carrito</button>
                                 </form>
-                                <form action='/productos/{{_id}}' method='GET' {{!-- onsubmit="return agregarProducto(this)" --}}>
+                                <form action='/productos/detail/{{_id}}' method='GET'>
                                     <button type='submit' class='btn btn-primary'>Ver más detalles</button>
                                 </form>
                             </div>

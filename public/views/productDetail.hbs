@@ -45,11 +45,11 @@
                     <p class="text-center text-primary">Cantidad: {{producto.cantidad}}</p>
                     <p class="text-center text-primary">{{producto.description}}</p>
                     <p class="text-center text-primary">Código: {{producto.code}}</p>
-                    <form action='/cart' method='POST' {{!-- onsubmit="return agregarProducto(this)" --}}>
-                        <input type='hidden' name='productId' value='{{producto._id}}' id="productId" /> {{!-- lo recibimos al post en /cart con req.body.productId --}}
+                    <form action="/cart"  method="POST">
+                        <input type='hidden' name='idProducto' value='{{_id}}' id="idProducto" /> 
                         <button type='submit' class='btn btn-primary'>Agregar al carrito</button>
                     </form>
-                    <form action='/productos' method='GET' {{!-- onsubmit="return agregarProducto(this)" --}}>
+                    <form action='/productos' method='GET' >
                         <button type='submit' class='btn btn-primary'>Volver a home</button>
                     </form>
                 </div>

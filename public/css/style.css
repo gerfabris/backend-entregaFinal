@@ -84,7 +84,14 @@ nav ul{
 }
 .img{
     width: 5em;
-    margin-left: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.display_flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .cards{
     display: flex;

@@ -1,7 +1,7 @@
 import { logger } from "../utils/logger.js"
-import { CarritosApi, OrderApi, ProductosApi } from "../api/index.api.js";
+import { CarritosApi, OrderApi } from "../api/index.api.js";
 import { sendEmailNewOrder } from "../services/nodeMailer.js";
-import { sendNewOrder, sendWhatsApp, sendWhatsAppAdmin } from "../services/twilio.js";
+import { sendWhatsApp, sendWhatsAppAdmin } from "../services/twilio.js";
 import { actualizarStockProductos } from "../utils/stock.js";
 /* ----- ----- */
 const orderApi = new OrderApi()

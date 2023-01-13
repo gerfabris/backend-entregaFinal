@@ -59,27 +59,6 @@ export const carrito = async (socket, io ) => {
             }
         })
 
-        /*socket.on('eliminar-producto', async () => {
-            let user = socket.request.session.passport.user
-            let email = user.userEmail
-            let total
-            const { idProducto } = socket.request.body
-            console.log(idProducto)
-             let carrito = await carritosApi.getByEmail(email)
-
-            if(carrito){
-                await carritosApi.deleteProductInCart(email, idProducto) 
-                carrito = await carritosApi.getByEmail(email)
-                let arr = carrito.productos.map( prod => prod.price) 
-                total = sumar(arr)
-
-                io.sockets.emit('mensaje-servidor-carrito', carrito , total)
-            }else{
-                carrito = await carritosApi.getByEmail(email)
-                io.sockets.emit('mensaje-servidor-carrito', carrito)
-            }
-        }) */
-
         socket.on('eliminar-producto', async () => {
             let user = socket.request.session.passport.user           
             let email = user.userEmail
@@ -129,8 +108,6 @@ export const carrito = async (socket, io ) => {
             const carrito = await carritosApi.getByEmail(user.userEmail)
             if(carrito){
                 console.log("Se encontro carrito pa comprar")
-                //let order = JSON.stringify(carrito.productos)
-                //let order = carrito.productos
                 let precios = carrito.productos.map( prod => prod.price)
                 let total = sumar(precios)
                 let order = carrito.productos.map( prod => {
@@ -139,11 +116,6 @@ export const carrito = async (socket, io ) => {
                         Precio: $${prod.price}
                     `
                 }) 
-                console.log(order)
-                //await sendWhatsAppAdmin(order, total, user) // ---> Este envía a ADMIN por whatsapp la Orden ya que no deja enviar SMS a msj sin verificar
-                //await sendWhatsApp(order, total , user) // ---> Este envía whatsapp a usuario su orden
-                //await sendEmailNewOrder(order, total, user) // ---> Este envía correo a usuario su orden
-                //await carrito.updateOne({ $set: { productos: [] } })
 
                 io.sockets.emit('mensaje-servidor-carrito', carrito)
             }

@@ -1,11 +1,8 @@
 import { logger } from "../utils/logger.js"
-import { CarritosApi, OrderApi , ProductosApi } from "../api/index.api.js";
-import { sendEmailNewOrder } from "../services/nodeMailer.js";
-import { sendNewOrder, sendWhatsApp, sendWhatsAppAdmin } from "../services/twilio.js";
+import { CarritosApi, ProductosApi } from "../api/index.api.js";
 /* ----- ----- */
 const carritosApi = new CarritosApi()
 const productosApi = new ProductosApi()
-const orderApi = new OrderApi()
 /* ----- ----- */
 export const getCart = async (req,res) =>{    
     try{
@@ -43,8 +40,6 @@ export const addToCart = async (req,res) =>{
         let producto = await productosApi.getById(idProducto)
 
         if(carrito && producto){
-            //producto = await productosApi.getById(idProducto)
-
             await carritosApi.pushProduct(email , producto )            
             carrito = await carritosApi.getByEmail(email)            
         }else{
@@ -114,25 +109,4 @@ export const deleteProductFromCart = async (req, res) => {
     }
 }
 
-/* export const vaciarCarrito = async ( req, res ) => {
-    try {
-        console.log("Vaciar")
-        let user = req.user
-        let email = user.userEmail 
-        let carrito = await carritosApi.getByEmail(email)
-        
-        if(carrito){           
-            total = 0
-            await carrito.updateOne({ $set: { productos: [] } })  
-            carrito = await carritosApi.getByEmail(email)
-            res.status(200).render('cart', {user, carrito})              
-        }
-    }catch (error) {
-        logger.error('Error en vaciarCarrito', error)
-        res.status(500).json({
-            success: false,
-            message: error.message
-        })
-    }
-} */
 
