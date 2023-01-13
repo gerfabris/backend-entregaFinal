@@ -3,8 +3,8 @@
     scroll-behavior: smooth;
     margin: 0;
     padding: 0;
-    background-color: rgb(206, 210, 226) /* #212529 
-    color: #0d6efd;*/;
+    background-color: /* rgb(206, 210, 226) */  #212529; 
+    color: #0d6efd;
 }
 main{
     padding: 2em;
@@ -27,6 +27,9 @@ nav ul{
     flex-direction: column;
     width: 100%;
     align-items: center;
+}
+.texto{
+    background: transparent;
 }
 .categories{
     display: flex;
@@ -110,8 +113,9 @@ nav ul{
     height: 25em;
     margin-left: 1em;
     margin-right: 1em;
-    box-shadow: 3px 3px 15px #023661;
-    background-color:  rgb(206, 210, 226);
+/*     box-shadow: 3px 3px 15px #023661;
+ */    box-shadow: 3px 3px 13px rgb(68, 85, 156);
+    background-color:  rgb(230, 200, 220);
     border-radius: 10pt;
     display: flex;
     justify-content: space-evenly;

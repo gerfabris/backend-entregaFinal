@@ -27,12 +27,7 @@
                 {{else}}
                 <h3 class="alert-success rounded p-3">Bienvenido 🚀</h3>  
             {{/if}}
-            <form method="POST">
-                <a href="/logout" class="my-4 container-fluid">
-                    <button type="submit" class="btn btn-dark">Cerrar sesión</button>
-                    <div id="logout"></div>
-                </a>            
-            </form>
+            {{logout}}
         </section>
         
         <div class="section section_detail">

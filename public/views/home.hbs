@@ -27,12 +27,7 @@
                 {{else}}
                 <h3 class="alert-success rounded p-3">Bienvenido 🚀</h3>  
             {{/if}}
-            <form method="POST" class="display_flex">
-                <a href="/logout" class="my-4 container-fluid">
-                    <button type="submit" class="btn btn-dark">Cerrar sesión</button>
-                    <div id="logout"></div>
-                </a>            
-            </form>
+            {{logout}}
         </section>
         
         <div class="col my-4">
@@ -44,7 +39,7 @@
                     <option value="termos">Termos</option>
                     <option value="set">Sets</option>
                 </select>
-                <button type="submit" class="btn btn-dark my-1">Ver</button>
+                <button type="submit" class="btn btn-primary my-1">Ver</button>
             </form>            
             <div id="list" class="section__tablaProductos">
             </div>

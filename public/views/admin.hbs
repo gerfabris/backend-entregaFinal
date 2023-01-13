@@ -23,19 +23,12 @@
         <h1 class="h1 my-4 text-primary text-center">Formulario y Chat con WebSocket</h1>
         <section class="section__bienvenida section">
             {{#if user }}
-                <div class="container-fluid my-4 flex__center">
-                    <h3 class="alert-success rounded p-3">Bienvenido {{user.name}}</h3>  
-                    <img src="{{user.avatar}}" alt="" class="img">
-                </div>
+                <h3 class="alert-success rounded p-3">Bienvenido {{user.name}}</h3>  
+                <img src="{{user.avatar}}" alt="" class="img">
                 {{else}}
                 <h3 class="alert-success rounded p-3">Bienvenido 🚀</h3>  
             {{/if}}
-            <form method="POST">
-                <a href="/logout" class="my-4 container-fluid">
-                    <button type="submit" class="btn btn-dark">Cerrar sesión</button>
-                    <div id="logout"></div>
-                </a>            
-            </form>
+            {{logout}}
         </section>
         
         <div>
@@ -70,7 +63,7 @@
                     <label for="stock" class="form-label my-2">Stock del producto</label>
                     <input type="number" min="0" class="form-control" name="stock" placeholder="Stock" id="stock"/>
                 </div>
-                <button type="submit" class="btn btn-dark">Cargar producto</button>
+                <button type="submit" class="btn btn-primary">Cargar producto</button>
             </form>
         </div>
         <div class="col my-4">

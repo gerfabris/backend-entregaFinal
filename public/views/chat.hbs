@@ -28,25 +28,20 @@
                 {{else}}
                 <h3 class="alert-success rounded p-3">Bienvenido 🚀</h3>  
             {{/if}}
-            <form method="POST">
-                <a href="/logout" class="my-4 container-fluid">
-                    <button type="submit" class="btn btn-dark">Cerrar sesión</button>
-                    <div id="logout"></div>
-                </a>            
-            </form>
+            {{logout}}
         </section>
         <section class="chat-container my-4">
             <h2 class="text-primary h2 my-2 text-center">Centro de mensajes</h2>
             <div class="section">
                 <form action="/chat/{{user.userEmail}}" class="container-fluid ">
-                    <button class="btn btn-dark my-4 " type="submit">Ir a mis mensajes</button>
+                    <button class="btn btn-primary my-4 " type="submit">Ir a mis mensajes</button>
                 </form>    
             </div>
             <form onsubmit="return addMessage()" class="my-4 section">
                 <input type="text" id="email" class="form-control w-75 my-2" placeholder="Indique su email"/>
                 <input type="text" id="type" class="form-control w-75 my-2" placeholder="Indique su tipo de usuario"/>
                 <input type="text" id="text" class="form-control w-75 my-2" placeholder="Escriba su mensaje"/>
-                <button type="submit" class="btn btn-dark">Enviar mensaje</button>
+                <button type="submit" class="btn btn-primary">Enviar mensaje</button>
             </form>
             <div id="messages" class="messages-container container my-4">
             </div>
