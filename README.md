@@ -6,7 +6,8 @@ El trabajo consiste en desarrollar una api rest que conlleve la lógica de un e-
 encuentra un archivo pdf con la consigna a desarrollar.
 
 ## Link Railway
-[Link](backend-entregafinal-production.up.railway.app) 
+[Link](https://backend-entregafinal-production.up.railway.app) 
+https://backend-entregafinal-production.up.railway.app/
 
 ## Instalación
 
