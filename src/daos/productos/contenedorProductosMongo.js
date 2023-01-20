@@ -1,4 +1,5 @@
 import { logger } from "../../utils/logger.js";
+import asDto from "../../dtos/productosDTO.js";
 
 export class ContenedorProductosMongo{
     constructor(coleccion){
@@ -9,18 +10,17 @@ export class ContenedorProductosMongo{
         try{
             let producto = await this.coleccion.create(obj);
             logger.info('Producto guardado', producto);
-            return producto
+            return asDto(producto)
         }catch(error){
             logger.error('Error en save / productos', error);
         }
     }
-    async updateById(obj){
+    async updateById(obj , id){
         try{
-            let producto = await this.coleccion.findOne({ id })
+            let producto = await this.coleccion.findOne({ _id: id })
             if (producto){
                 await this.coleccion.replaceOne({_id: id}, obj)
-                //await this.coleccion.update( {_id: id, obj})
-                return producto
+                return asDto(producto)
             } else{
                 return {error: "No existe el producto"}
             }
@@ -33,7 +33,7 @@ export class ContenedorProductosMongo{
             let producto = await this.coleccion.findOne({ _id: id })
             if(producto){
                 logger.info('Producto obtenido por ID', producto);
-                return producto
+                return asDto(producto)
             }else{
                 logger.info("No se encontró un producto con ese ID", id);
                 return null
@@ -46,8 +46,8 @@ export class ContenedorProductosMongo{
         try{
             const productos = await this.coleccion.find({})
             if(productos){
-                logger.info('Productos obtenidos');
-                return productos
+                logger.info('Productos obtenidos');             
+                return asDto(productos)
             }else{
                 logger.info("No hay productos en el contenedor");
                 return null
@@ -62,7 +62,7 @@ export class ContenedorProductosMongo{
             let productos = await this.coleccion.find({ category: category })
             if(productos){
                 logger.info('Productos obtenidos por categoría');
-                return productos
+                return asDto(productos)
             }else{
                 logger.info("No se encontró productos con esa categoría", category);
                 return null
@@ -74,9 +74,9 @@ export class ContenedorProductosMongo{
 
     async deleteById(id){
         try{
-            const producto = await this.coleccion.findOne({ id })
+            const producto = await this.coleccion.findOne({ _id: id })
             if (producto){
-                let productoEliminado = await this.coleccion.deleteOne({ id })
+                let productoEliminado = await this.coleccion.deleteOne({ _id: id })
                 logger.info(`Se ha eliminado el producto ${id}`);
             }else{
                 logger.info("No se encuentra el producto para eliminar");

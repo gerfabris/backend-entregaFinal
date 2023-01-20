@@ -1,16 +1,16 @@
-import { MensajesApi } from "../api/index.api.js"
+import { MensajesRepo } from "../repositories/index.repositories.js"
 
-const mensajesApi = new MensajesApi()
+const mensajesRepo = new MensajesRepo()
 
 export const mensajes = async (socket, io) =>{
 
-    const getMensajes = await mensajesApi.getAll()
+    const getMensajes = await mensajesRepo.getAll()
     const messages = getMensajes
 
     socket.emit('mensaje-servidor-chat', messages )
     socket.on('message-nuevo', async (message, cb) =>{        
-        await mensajesApi.save(message)
-        const messages = await mensajesApi.getAll()
+        await mensajesRepo.save(message)
+        const messages = await mensajesRepo.getAll()
         io.sockets.emit('mensaje-servidor-chat', messages )
     })
 }

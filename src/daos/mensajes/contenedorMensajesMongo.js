@@ -1,3 +1,4 @@
+import asDto from "../../dtos/mensajesDTO.js";
 import { logger } from "../../utils/logger.js";
 
 export class ContenedorMensajesMongo{
@@ -8,7 +9,7 @@ export class ContenedorMensajesMongo{
         try{
             let mensaje = await this.coleccion.create(obj);
             logger.info('Mensaje guardado', obj);
-            return mensaje
+            return asDto(mensaje)
         }catch(error){
             console.log( 'Error en save / mensajes' , error);
         }
@@ -18,8 +19,7 @@ export class ContenedorMensajesMongo{
             let mensaje = await this.coleccion.findOne({ id })
             if (mensaje){
                 await this.coleccion.replaceOne({_id: id}, obj)
-                //await this.coleccion.update( {_id: id, obj})
-                return mensaje
+                return asDto(mensaje)
             } else{
                 return {error: "No existe el mensaje para actualizar"}
             }
@@ -32,7 +32,7 @@ export class ContenedorMensajesMongo{
             let mensaje = await this.coleccion.findOne({ id })
             if(mensaje){
                 logger.info('Producto obtenido por ID', mensaje);
-                return mensaje
+                return asDto(mensaje)
             }else{
                 logger.info("No se encontró un mensaje con ese ID", id);
                 return null
@@ -46,7 +46,7 @@ export class ContenedorMensajesMongo{
             let mensajes = await this.coleccion.find({ email: email })
             if(mensajes){
                 logger.info('Mensajes obtenidos por email');
-                return mensajes
+                return asDto(mensajes)
             }else{
                 logger.info("No se encontró un mensaje con ese email", id);
                 return null
@@ -60,7 +60,7 @@ export class ContenedorMensajesMongo{
             const mensajes = await this.coleccion.find({})
             if(mensajes.length > 0){
                 logger.info('Mensajes obtenidos');
-                return mensajes
+                return asDto(mensajes)
             }else{
                 logger.info("No hay mensajes para mostrar");
                 return null

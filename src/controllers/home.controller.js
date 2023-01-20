@@ -1,7 +1,7 @@
-import { ProductosApi } from "../api/index.api.js";
+import { ProductosRepo } from "../repositories/index.repositories.js";
 import { logger } from "../utils/logger.js"
 
-let productosApi = new ProductosApi()
+let productosRepo = new ProductosRepo()
 
 export const getHome = async (req,res)=>{
     try {
@@ -43,7 +43,7 @@ export const getProductById = async (req,res)=>{
         if(req.user){
             let user = req.user;
             let { id } = req.params
-            let producto = await productosApi.getById(id)
+            let producto = await productosRepo.getById(id)
 
             res.render('productDetail', {user, producto }) ;
         }else{
@@ -64,7 +64,8 @@ export const getProductsByCategory = async (req,res)=>{
         if(req.user){
             let user = req.user;
             let { category } = req.query
-            let productos = await productosApi.getByCategory(category)
+            let productos = await productosRepo.getByCategory(category)
+
             res.render('byCategory', {user, productos }) ;
         }else{
             res.redirect('/');

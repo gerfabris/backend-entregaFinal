@@ -32,7 +32,7 @@
         </section>
         
         <div>
-            <h2 class="text-primary mt-4 text-center">Ingrese datos</h2>
+            <h2 class="text-primary mt-4 text-center">Ingrese datos para cargar el producto</h2>
             <!-- <form action="/productos" method="post">  -->
             <form onsubmit="return addProduct(this)" class="section">
                 <div class="mb-3 ">
@@ -64,6 +64,55 @@
                     <input type="number" min="0" class="form-control" name="stock" placeholder="Stock" id="stock"/>
                 </div>
                 <button type="submit" class="btn btn-primary">Cargar producto</button>
+            </form>
+        </div>
+        <div>
+            <h2 class="text-primary mt-4 text-center">Ingrese datos para actualizar el producto</h2>
+            <form action="/admin/update" method="post" class="section">
+            {{!-- <form onsubmit="return updateProduct(this)" class="section"> --}}
+                <div class="mb-3 ">
+                    <label for="idProducto" class="form-label my-2" >ID del producto</label>
+                    <input type="text" class="form-control" name="idProducto" placeholder="ID del producto" id="idProducto"/>
+                </div>
+                <div class="mb-3 ">
+                    <label for="title" class="form-label my-2" >Nombre del producto</label>
+                    <input type="text" class="form-control" name="title" placeholder="Nombre del producto" id="title"/>
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label my-2">Precio del producto</label>
+                    <input type="number" class="form-control" name="price" placeholder="Precio del producto" id="price"/>
+                </div>
+                <div class="mb-3">
+                    <label for="thumbnail" class="form-label my-2">Link foto del producto</label>
+                    <input type="url" class="form-control" name="thumbnail" placeholder="Link de imagen producto" id="thumbnail"/>
+                </div>
+                <div class="mb-3">
+                    <label for="code" class="form-label my-2">Código del producto</label>
+                    <input type="text" class="form-control" name="code" placeholder="Código producto" id="code"/>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label my-2">Descripción del producto</label>
+                    <input type="text" class="form-control" name="description" placeholder="Descripción del producto" id="description"/>
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label my-2">Categoría del producto</label>
+                    <input type="text" class="form-control" name="category" placeholder="Categoría" id="category"/>
+                </div>
+                <div class="mb-3">
+                    <label for="stock" class="form-label my-2">Stock del producto</label>
+                    <input type="number" min="0" class="form-control" name="stock" placeholder="Stock" id="stock"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Actualizar producto</button>
+            </form>
+        </div>
+        <div>
+            <h2 class="text-primary mt-4 text-center">Ingrese datos para eliminar el producto</h2>
+            <form action="/admin/delete" method="post" class="section">
+                <div class="mb-3 ">
+                    <label for="idProducto" class="form-label my-2" >ID del producto</label>
+                    <input type="text" class="form-control" name="idProducto" placeholder="ID del producto" id="idProducto"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Eliminar producto</button>
             </form>
         </div>
         <div class="col my-4">

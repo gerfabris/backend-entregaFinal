@@ -1,7 +1,7 @@
 import { logger } from "../utils/logger.js"
-import { CarritosApi } from "../api/index.api.js";
+import { CarritosRepo } from "../repositories/index.repositories.js";
 
-const carritosApi = new CarritosApi()
+const carritosRepo = new CarritosRepo()
 
 const sumar = (arr) => {
     let total = 0
@@ -18,7 +18,7 @@ export const carrito = async (socket, io ) => {
         let address = user.address
         let total
 
-        let carrito = await carritosApi.getByEmail(email)
+        let carrito = await carritosRepo.getByEmail(email)
 
         if(carrito){
             let arr = carrito.productos.map( prod => prod.producto.price )
@@ -26,7 +26,7 @@ export const carrito = async (socket, io ) => {
 
             socket.emit('mensaje-servidor-carrito', carrito, total )
         }else{            
-            carrito = await carritosApi.crearCarrito( email, address )
+            carrito = await carritosRepo.crearCarrito( email, address )
 
             let arr = carrito.productos.map( prod => prod.producto.price )
             total = sumar(arr)
@@ -40,17 +40,17 @@ export const carrito = async (socket, io ) => {
             let address = user.address
             let total
 
-            let carrito = await carritosApi.getByEmail(email)
+            let carrito = await carritosRepo.getByEmail(email)
 
             if(carrito){
-                carrito = await carritosApi.getByEmail(email)
+                carrito = await carritosRepo.getByEmail(email)
 
                 let arr = carrito.productos.map( prod => prod.producto.price )
                 total = sumar(arr)
                 io.sockets.emit('mensaje-servidor-carrito', carrito , total)
             }else{                
-                carrito = await carritosApi.crearCarrito( email, address )
-                carrito = await carritosApi.getByEmail(email)
+                carrito = await carritosRepo.crearCarrito( email, address )
+                carrito = await carritosRepo.getByEmail(email)
 
                 let arr = carrito.productos.map( prod => prod.producto.price )
                 total = sumar(arr)
@@ -65,17 +65,17 @@ export const carrito = async (socket, io ) => {
             let address = user.address
             let total
 
-            let carrito = await carritosApi.getByEmail(email)
+            let carrito = await carritosRepo.getByEmail(email)
 
             if(carrito){
-                carrito = await carritosApi.getByEmail(email)
+                carrito = await carritosRepo.getByEmail(email)
 
                 let arr = carrito.productos.map( prod => prod.producto.price )
                 total = sumar(arr)
                 io.sockets.emit('mensaje-servidor-carrito', carrito , total)
             }else{                
-                carrito = await carritosApi.crearCarrito( email, address )
-                carrito = await carritosApi.getByEmail(email)
+                carrito = await carritosRepo.crearCarrito( email, address )
+                carrito = await carritosRepo.getByEmail(email)
 
                 let arr = carrito.productos.map( prod => prod.producto.price )
                 total = sumar(arr)
@@ -87,15 +87,15 @@ export const carrito = async (socket, io ) => {
         socket.on('vaciar-carrito', async (productId) => {
             let user = socket.request.session.passport.user
             let email = user.userEmail 
-            let carrito = await carritosApi.getByEmail(email)
+            let carrito = await carritosRepo.getByEmail(email)
             
             if(carrito){           
                 total = 0
-                await carrito.updateOne({ $set: { productos: [] } })                
+                await carritosRepo.deleteAllProducts(email)              
 
                 socket.emit('mensaje-servidor-carrito', carrito, total )
             }else{            
-                carrito = await carritosApi.crearCarrito( email, address )
+                carrito = await carritosRepo.crearCarrito( email, address )
                 total = 0
 
                 socket.emit('mensaje-servidor-carrito', carrito, total )
@@ -105,7 +105,7 @@ export const carrito = async (socket, io ) => {
         socket.on('comprar-carrito', async () => {
             console.log("Comprando")
             let user = socket.request.session.passport.user
-            const carrito = await carritosApi.getByEmail(user.userEmail)
+            const carrito = await carritosRepo.getByEmail(user.userEmail)
             if(carrito){
                 console.log("Se encontro carrito pa comprar")
                 let precios = carrito.productos.map( prod => prod.price)

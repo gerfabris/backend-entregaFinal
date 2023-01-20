@@ -1,7 +1,7 @@
-import { MensajesApi } from "../api/index.api.js";
+import { MensajesRepo } from "../repositories/index.repositories.js";
 import { logger } from "../utils/logger.js"
 
-const mensajesApi = new MensajesApi()
+const mensajesRepo = new MensajesRepo()
 
 export const getChat = async (req,res)=>{
     try {
@@ -43,8 +43,7 @@ export const getByEmail = async (req,res)=>{
         if(req.user){
             let user = req.user;
             let { email } = req.params
-            //let { email } = user.userEmail
-            let mensajes = await mensajesApi.getByEmail(email)
+            let mensajes = await mensajesRepo.getByEmail(email)
             res.render('chatByEmail', {user, mensajes} );
         }else{
             res.redirect('/');

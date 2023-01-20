@@ -1,5 +1,7 @@
+import asDto from "../../dtos/orderDTO.js";
 import { logger } from "../../utils/logger.js";
 
+asDto
 export class ContenedorOrderMongoDB {
     constructor(coleccion){
         this.coleccion = coleccion
@@ -9,13 +11,13 @@ export class ContenedorOrderMongoDB {
             if(obj){
                 const ordenNueva = await this.coleccion.create({ email: email, productos: obj , address: address})
                 logger.info(`La orden fue cargada: ${ordenNueva}`);
-                return ordenNueva
+                return asDto(ordenNueva)
             }else{
                 logger.info(`No se creó la orden, motivo: sin productos`);
                 return null
             }
         }catch(error){
-            logger.error('Error al implementar order/crearCarrito' , error);
+            logger.error('Error al implementar order/crearOrden' , error);
         }
     }
     async updateOrder(producto, idOrder){
@@ -27,7 +29,7 @@ export class ContenedorOrderMongoDB {
                     runValidators: true
                 })
                 logger.info('Orden actualizada')
-                return ordenActualizada
+                return asDto(ordenActualizada)
             } else{
                 logger.info('La orden no existe para actualizar')
                 return null
@@ -42,7 +44,7 @@ export class ContenedorOrderMongoDB {
             const orden = await this.coleccion.findById({_id: id})
             if(orden){
                 logger.info('La orden fue encontrada con el ID')
-                return carrito
+                return asDto(orden)
             }else{
                 logger.info("No se encontró una orden con ese ID");
                 return null
@@ -56,7 +58,7 @@ export class ContenedorOrderMongoDB {
             const orden = await this.coleccion.findOne({email: email})
             if(orden){
                 logger.info('La orden fue encontrado con el EMAIL')
-                return orden
+                return asDto(orden)
             }else{
                 logger.info("No se encontró una orden con ese EMAIL");
                 return null
@@ -70,10 +72,9 @@ export class ContenedorOrderMongoDB {
             const ordenes = await this.coleccion.find({})
             if(ordenes.length){
                 logger.info('Ordenes obtenidas con getAll')
-                return carritos
+                return asDto(ordenes)
             }else{
                 logger.info("No hay ordenes en el contenedor");
-                //return carritos
                 return null
             }
         }catch(error){

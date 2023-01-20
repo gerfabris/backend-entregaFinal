@@ -1,19 +1,21 @@
-import { ProductosApi } from "../api/index.api.js"
-const productosApi = new ProductosApi()
+import { ProductosRepo } from "../repositories/index.repositories.js"
+const productosRepo = new ProductosRepo()
 
 export const productos = async ( socket, io ) =>{
 
-    let getProductos = await productosApi.getAll()
+    let getProductos = await productosRepo.getAll()
     const productos =  getProductos 
 
     socket.emit('mensaje-servidor-productos-home', productos)
     socket.emit('mensaje-servidor-productos-admin', productos)
 
     socket.on('producto-nuevo', async (producto) =>{
-        await productosApi.save(producto)
-        const productos = await productosApi.getAll()
+        await productosRepo.save(producto)
+        const productos = await productosRepo.getAll()
+
         io.sockets.emit('mensaje-servidor-productos-admin', productos)
         io.sockets.emit('mensaje-servidor-productos-home', productos)  
     })
+
 }
 

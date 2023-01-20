@@ -149,6 +149,44 @@ nav ul{
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
 }
 
+.itemCount{
+    display: flex;
+    background-color: transparent;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-bottom: 1em;
+    max-width: 200px;
+    min-width: 200px;
+    
+}
+.itemCount button{
+    height: 30px;
+    width: 30px;
+    margin-right: 1em;
+    margin-left: 1em;
+    border-radius: 3pt;
+    border: none;
+    background-color: none;
+    font-weight: bold;
+    transition: all .5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.itemCount button:hover{
+    background-color: #212529;
+    color: #ffffff;
+}
+
+.itemCount p{
+    margin-bottom: 0;
+}
+
+
 @media screen and (max-width: 900px) {
     nav ul li{
         display: flex;

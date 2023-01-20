@@ -42,7 +42,6 @@ const renderProductos = productos => {
     })
 }
 
-
 /* ---- server escucha mensaje para insertar productos ------- */
 server.on('mensaje-servidor-productos-admin', ( productos ) =>{
     renderProductos (productos)

@@ -4,7 +4,7 @@ import { MensajesFactory } from '../daos/mensajesFactory.js'
 import { OrderFactory } from '../daos/orderFactory.js'
 import { ProductosFactory } from '../daos/productosFactory.js'
 
-export class MensajesApi {
+export class MensajesRepo {
     constructor(){
         this.mensajesDAO = MensajesFactory.get(config.DAO_MENSAJES) 
     }
@@ -19,7 +19,7 @@ export class MensajesApi {
     }
 }
 
-export class ProductosApi {
+export class ProductosRepo {
     constructor() {
         this.productosDAO = ProductosFactory.get(config.DAO_PRODUCTOS) 
     }
@@ -32,12 +32,18 @@ export class ProductosApi {
     async getById (id) {
         return await this.productosDAO.getById(id)
     }
+    async updateById(obj , id) {
+        return await this.productosDAO.updateById(obj , id)
+    }
+    async deleteById(id) {
+        return await this.productosDAO.deleteById(id)
+    }
     async getByCategory(category){
         return await this.productosDAO. getByCategory(category)
     }
 }
 
-export class CarritosApi {
+export class CarritosRepo {
     constructor() {
         this.carritosDAO = CarritosFactory.get(config.DAO_CARRITOS) 
     }
@@ -53,9 +59,12 @@ export class CarritosApi {
     async pushProduct(email, producto) {
         return await this.carritosDAO.pushProduct(email, producto)
     }
+    async deleteAllProducts(email)  {
+        return await this.carritosDAO.deleteAllProducts(email)
+    }
 }
 
-export class OrderApi {
+export class OrderRepo {
     constructor () {
         this.orderDAO = OrderFactory.get(config.DAO_ORDER)
     }

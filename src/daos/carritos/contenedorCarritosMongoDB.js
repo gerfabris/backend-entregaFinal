@@ -1,3 +1,4 @@
+import asDto from "../../dtos/carritosDTO.js";
 import { logger } from "../../utils/logger.js";
 
 export class ContenedorCarritosMongoDB {
@@ -9,7 +10,7 @@ export class ContenedorCarritosMongoDB {
             if(obj){
                 const carritoNuevo = await this.coleccion.create({ email: email, productos: obj , address: address})
                 logger.info(`El carrito fue cargado: ${carritoNuevo}, con productos`);
-                return carritoNuevo
+                return asDto(carritoNuevo)
             }else{
                 const carritoNuevo = await this.coleccion.create({ email: email, productos: [] , address: address})
                 logger.info(`El carrito fue cargado: ${carritoNuevo}, sin productos`);
@@ -28,7 +29,7 @@ export class ContenedorCarritosMongoDB {
                     runValidators: true
                 })
                 logger.info('Carrito actualizado')
-                return carritoActualizado
+                return asDto(carritoActualizado)
             } else{
                 logger.info('El carrito no existe para actualizar')
                 return {error: "No existe el carrito"}
@@ -46,10 +47,8 @@ export class ContenedorCarritosMongoDB {
                     { $push: { productos: {producto} }}, 
                     {new: true} 
                 )
-
-                //const carritoActualizado = await this.coleccion.updateOne({ $push: { productos: producto } })
                 logger.info('Producto agregado al carrito')
-                return carritoActualizado
+                return asDto(carritoActualizado)
             } else{
                 logger.info('El carrito no existe para actualizar')
                 return {error: "No existe el carrito"}
@@ -63,7 +62,7 @@ export class ContenedorCarritosMongoDB {
             const carrito = await this.coleccion.findById({_id: id})
             if(carrito){
                 logger.info('El carrito fue encontrado con el ID')
-                return carrito
+                return asDto(carrito)
             }else{
                 logger.info("No se encontró un carrito con ese ID");
                 return null
@@ -77,7 +76,7 @@ export class ContenedorCarritosMongoDB {
             const carrito = await this.coleccion.findOne({email: email})
             if(carrito){
                 logger.info('El carrito fue encontrado con el EMAIL')
-                return carrito
+                return asDto(carrito)
             }else{
                 logger.info("No se encontró un carrito con ese EMAIL");
                 return null
@@ -91,10 +90,9 @@ export class ContenedorCarritosMongoDB {
             const carritos = await this.coleccion.find({})
             if(carritos.length){
                 logger.info('Carritos obtenidos con getAll')
-                return carritos
+                return asDto(carritos)
             }else{
                 logger.info("No hay carrito en el contenedor");
-                //return carritos
                 return null
             }
         }catch(error){
@@ -137,11 +135,10 @@ export class ContenedorCarritosMongoDB {
             if(carrito){
                 const carritoActualizado = await this.coleccion.findOneAndUpdate(
                     {email: email}, 
-                    { $pull: { productos: { title : idProducto } } } 
+                    { $pull: { productos: { _id : idProducto } } } 
                 )
-                //const carritoActualizado = await this.coleccion.updateOne({ $pull: { productos: { title : idProducto } } })
                 logger.info("Producto eliminado del carrito");
-                return carritoActualizado
+                return asDto(carritoActualizado)
             }else{
                 logger.info("No se encuentra el carrito");
             }
@@ -166,7 +163,7 @@ export class ContenedorCarritosMongoDB {
         try{
             const carrito = await this.coleccion.findOne({email: email})
             if(carrito){
-                await Cart.findOneAndUpdate({email}, {$set: {"productos": []}}, {new: true});
+                await this.coleccion.findOneAndUpdate({email}, {$set: {"productos": []}}, {new: true});
                 logger.info("Productos eliminados del carrito");
             }else{
                 logger.info("No hay carritos para eliminar");
