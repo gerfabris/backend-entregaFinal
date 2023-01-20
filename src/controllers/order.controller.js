@@ -59,7 +59,7 @@ export const postOrder = async ( req, res ) => {
             await sendWhatsAppAdmin(orderEnviar, total, user) // ---> Este envía a ADMIN por whatsapp la Orden ya que no deja enviar SMS a msj sin verificar
             await sendWhatsApp(orderEnviar, total , user) // ---> Este envía whatsapp a usuario su orden
             await sendEmailNewOrder(orderEnviar, total, user) // ---> Este envía correo a usuario su orden
-            await carritosRepo.deleteAllProducts(email) 
+            await carritosRepo.deleteAllProducts(user.userEmail) 
             
             let order = ordenParaMongo
             res.status(200).render('order', {user, order})
